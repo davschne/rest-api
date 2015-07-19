@@ -1,0 +1,21 @@
+{
+  "name": "rest-api",
+  "version": "0.1.0",
+  "description": "\"Single-resource REST API server backed by MongoDB\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "David Schneider",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
+    "mocha": "^2.2.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "mongoose": "^4.0.7"
+  }
+}

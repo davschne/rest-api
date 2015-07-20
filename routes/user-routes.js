@@ -37,7 +37,17 @@ router.post("/", function(req, res) {
 });
 
 router.put("/:id", function(req, res) {
-
+  var id = req.params.id;
+  console.log("PUT request at /api/user/" + id);
+  User.update({_id: id}, req.body, function(err) {
+    if (err) {
+      res.status(400).json({msg: err});
+      console.error(err);
+    } else {
+      console.log("Successfully modified user " + id);
+      res.status(200).json({msg: "User modified: " + id})
+    }
+  });
 });
 
 router.delete("/:id", function(req, res) {

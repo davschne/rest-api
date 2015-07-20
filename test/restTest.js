@@ -63,6 +63,17 @@ describe("index.js", function() {
           done();
         });
     });
+    it("should respond to a GET request for an existing id with the user object in JSON", function(done) {
+      chai.request(url)
+        .get(path + "/" + id)
+        .end(function(err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.have.property("username", "dumbo");
+          done();
+        });
+    });
   });
   describe("PUT request", function() {
     it("should respond to a PUT request for an existing id with a JSON success message", function(done) {

@@ -9,13 +9,23 @@ router.get("/", function(req, res) {
       console.error(err);
     } else {
       res.status(200).json(data);
-      console.log("Successful response to GET request")
+      console.log("Successful response to GET request");
     }
   });
 });
 
 router.get("/:id", function(req, res) {
-
+  var id = req.params.id;
+  console.log("GET request at /api/user/" + id);
+  User.findById(id, function(err, data) {
+    if (err) {
+      res.status(404).json({msg: err});
+      console.error(err);
+    } else {
+      res.status(200).json(data);
+      console.log("Successful response to GET request for user " + id);
+    }
+  });
 });
 
 router.post("/", function(req, res) {

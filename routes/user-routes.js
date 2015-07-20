@@ -8,7 +8,7 @@ router.get("/", function(req, res) {
       res.status(404).json({msg: err});
       console.error(err);
     } else {
-      res.json(data);
+      res.status(200).json(data);
       console.log("Successful response to GET request")
     }
   });
@@ -28,7 +28,7 @@ router.post("/", function(req, res) {
     } else {
       var id = newUser._id; // get _id property of new user
       console.log("Sucessfully created new user " + id);
-      res.json({
+      res.status(200).json({
         msg : "User saved.",
         id  : id
       });
@@ -49,7 +49,7 @@ router.delete("/:id", function(req, res) {
       console.error(err);
     } else {
       console.log("Successfully deleted user " + id);
-      res.json({msg: "User deleted: " + id})
+      res.status(200).json({msg: "User deleted: " + id})
     }
   });
 });

@@ -30,9 +30,10 @@ describe("index.js", function() {
         .type("json")
         .send(dummyUser)
         .end(function(err, res) {
+          id = res.body.id;                // SAVE id for later use
           expect(err).to.be.null;
           expect(res).to.have.status(200);
-          expect(res.body).to.be.json;
+          expect(res).to.be.json;
           done();
         });
     });
@@ -44,8 +45,20 @@ describe("index.js", function() {
         .end(function(err, res) {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
-          expect(res.body).to.be.json;
-          expect(JSON.parse(res.body)).to.be.an("array");
+          expect(res).to.be.json;
+          expect(res.body).to.be.an("array");
+          done();
+        });
+    });
+  });
+  describe("DELETE request", function() {
+    it("should respond to a DELETE request for an existing id with a JSON success message", function(done) {
+      chai.request(url)
+        .delete(path + "/" + id)
+        .end(function(err, res) {
+          expect(err).to.be.null;
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
           done();
         });
     });

@@ -52,9 +52,9 @@ describe("index.js", function() {
     });
   });
   describe("GET request", function() {
-    it("should respond to a GET request at /user with a JSON array of all users", function(done) {
+    it("should respond to a GET request at /users with a JSON array of all users", function(done) {
       chai.request(url)
-        .get(path)
+        .get("/api/users")
         .end(function(err, res) {
           expect(err).to.be.null;
           expect(res).to.have.status(200);

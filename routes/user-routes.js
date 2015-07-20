@@ -1,8 +1,8 @@
 var router = require("express").Router();
 var User = require("../models/user-model");
 
-router.get("/", function(req, res) {
-  console.log("GET request at /api/user");
+router.get("/users", function(req, res) {
+  console.log("GET request at /api/users");
   User.find({}, function(err, data) {
     if (err) {
       res.status(404).json({msg: err});
@@ -14,7 +14,7 @@ router.get("/", function(req, res) {
   });
 });
 
-router.get("/:id", function(req, res) {
+router.get("/user/:id", function(req, res) {
   var id = req.params.id;
   console.log("GET request at /api/user/" + id);
   User.findById(id, function(err, data) {
@@ -28,7 +28,7 @@ router.get("/:id", function(req, res) {
   });
 });
 
-router.post("/", function(req, res) {
+router.post("/user", function(req, res) {
   console.log("POST request at /api/user");
   var user = new User(req.body);
   user.save(function(err, newUser) {
@@ -46,7 +46,7 @@ router.post("/", function(req, res) {
   });
 });
 
-router.put("/:id", function(req, res) {
+router.put("/user/:id", function(req, res) {
   var id = req.params.id;
   console.log("PUT request at /api/user/" + id);
   User.update({_id: id}, req.body, function(err) {
@@ -60,7 +60,7 @@ router.put("/:id", function(req, res) {
   });
 });
 
-router.delete("/:id", function(req, res) {
+router.delete("/user/:id", function(req, res) {
   var id = req.params.id;
   console.log("DELETE request for /api/user/" + id);
   User.remove({_id: id}, function(err) {

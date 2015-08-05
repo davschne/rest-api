@@ -25,10 +25,7 @@ module.exports = function(router) {
       } else {
         var id = newUser._id; // get _id property of new user
         console.log("Sucessfully created new user " + id);
-        res.status(200).json({
-          msg : "User saved.",
-          id  : id
-        });
+        res.status(200).json(newUser);
       }
     });
   });
@@ -50,13 +47,13 @@ module.exports = function(router) {
   router.put("/:id", function(req, res) {
     var id = req.params.id;
     console.log("PUT request at /api/user/" + id);
-    User.update({_id: id}, req.body, function(err) {
+    User.update({_id: id}, req.body, function(err, data) {
       if (err) {
         res.status(400).json({msg: err});
         console.error(err);
       } else {
         console.log("Successfully modified user " + id);
-        res.status(200).json({msg: "User modified: " + id})
+        res.status(200).json(data);
       }
     });
   });
@@ -64,13 +61,13 @@ module.exports = function(router) {
   router.delete("/:id", function(req, res) {
     var id = req.params.id;
     console.log("DELETE request for /api/user/" + id);
-    User.remove({_id: id}, function(err) {
+    User.remove({_id: id}, function(err, data) {
       if (err) {
         res.status(400).json({msg: err});
         console.error(err);
       } else {
         console.log("Successfully deleted user " + id);
-        res.status(200).json({msg: "User deleted: " + id})
+        res.status(200).json(data);
       }
     });
   });

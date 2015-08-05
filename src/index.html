@@ -5,39 +5,53 @@
   <title>Create a user for no reason!</title>
 </head>
 <body data-ng-app="usersApp">
-  <h1>Make a user for no reason!</h1>
-  <table data-ng-controller="usersController" data-ng-init="getAll()">
-    <thead>
-      <th>username</th>
-      <th>first</th>
-      <th>last</th>
-      <th>email</th>
-      <th>street address</th>
-      <th>city</th>
-      <th>state</th>
-      <th>ZIP</th>
-      <th></th>
-      <th></th>
-    </thead>
-    <tbody>
-      <tr data-ng-repeat="user in users">
-        <td>{{user.username}}</td>
-        <td>{{user.firstname}}</td>
-        <td>{{user.lastname}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.address.street}}</td>
-        <td>{{user.address.city}}</td>
-        <td>{{user.address.state}}</td>
-        <td>{{user.address.zip}}</td>
-        <td>
-          <button>Edit</button>
-        </td>
-        <td>
-          <button data-ng-click="destroy(user)">Delete</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <main data-ng-controller="usersController" data-ng-init="getAll()">
+    <h1>Make a user for no reason!</h1>
+    <table>
+      <thead>
+        <th>username</th>
+        <th>first</th>
+        <th>last</th>
+        <th>email</th>
+        <th>street address</th>
+        <th>city</th>
+        <th>state</th>
+        <th>ZIP</th>
+        <th></th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="user in users">
+          <td>{{user.username}}</td>
+          <td>{{user.firstname}}</td>
+          <td>{{user.lastname}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.address.street}}</td>
+          <td>{{user.address.city}}</td>
+          <td>{{user.address.state}}</td>
+          <td>{{user.address.zip}}</td>
+          <td>
+            <button>Edit</button>
+          </td>
+          <td>
+            <button data-ng-click="destroy(user)">Delete</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" required name="username" data-ng-model="newUser.username"></td>
+          <td><input type="text" name="first" data-ng-model="newUser.firstname"></td>
+          <td><input type="text" name="last" data-ng-model="newUser.lastname"></td>
+          <td><input type="text" name="email" data-ng-model="newUser.email"></td>
+          <td><input type="text" name="street" data-ng-model="newUser.address.street"></td>
+          <td><input type="text" name="city" data-ng-model="newUser.address.city"></td>
+          <td><input type="text" name="state" data-ng-model="newUser.address.state"></td>
+          <td><input type="text" name="zip" data-ng-model="newUser.address.zip"></td>
+          <td><button data-ng-click="create(newUser)">Add</button></td>
+          <td><button data-ng-click="newUser = null">Cancel</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
   <script src="bundle.js"></script>
 </body>
 </html>

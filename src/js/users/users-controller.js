@@ -7,6 +7,7 @@ module.exports = function(app) {
   app.controller('usersController', ['$scope', '$http', function($scope, $http) {
     $scope.users = [];
     $scope.errors = [];
+
     $scope.getAll = function() {
       $http.get('/api/users')
         .then(function(res) {
@@ -16,6 +17,18 @@ module.exports = function(app) {
           handle(res, 'Couldn\'t retrieve users');
         });
     };
+
+    $scope.create = function(user) {
+      $scope.newUser = null;
+      $http.post('/api/users', user)
+        .then(function(res) {
+          $scope.users.push(res.data);
+        })
+        .catch(function(res) {
+          handle(res, 'Error creating user');
+        });
+    };
+
     $scope.destroy = function(user) {
       $http.delete('/api/users/' + user._id)
         .then(function(res) {

@@ -16,6 +16,8 @@
       <th>city</th>
       <th>state</th>
       <th>ZIP</th>
+      <th></th>
+      <th></th>
     </thead>
     <tbody>
       <tr data-ng-repeat="user in users">
@@ -27,6 +29,12 @@
         <td>{{user.address.city}}</td>
         <td>{{user.address.state}}</td>
         <td>{{user.address.zip}}</td>
+        <td>
+          <button>Edit</button>
+        </td>
+        <td>
+          <button data-ng-click="destroy(user)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

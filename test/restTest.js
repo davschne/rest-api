@@ -2,7 +2,7 @@ var chai = require("chai");
 var expect = chai.expect;
 var port = process.env.PORT || 5000;
 var url = "localhost:" + port;
-var path = "/api/user"
+var path = "/api/users"
 var app = require("../index");
 
 var dummyUser = {
@@ -37,7 +37,7 @@ chai.use(require("chai-http"));
 
 describe("index.js", function() {
   describe("POST request", function() {
-    it("should respond to a POST request at /user with a JSON success message", function(done) {
+    it("should respond to a POST request at /api/users with a JSON success message", function(done) {
       chai.request(url)
         .post(path)
         .type("json")
@@ -52,9 +52,9 @@ describe("index.js", function() {
     });
   });
   describe("GET request", function() {
-    it("should respond to a GET request at /users with a JSON array of all users", function(done) {
+    it("should respond to a GET request at /api/users with a JSON array of all users", function(done) {
       chai.request(url)
-        .get("/api/users")
+        .get(path)
         .end(function(err, res) {
           expect(err).to.be.null;
           expect(res).to.have.status(200);

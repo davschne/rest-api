@@ -18,3 +18,7 @@ gulp.task('copy', function() {
 
 gulp.task('build', ['webpack', 'copy']);
 gulp.task('default', ['build']);
+
+gulp.task('watch', function() {
+  gulp.watch('src/**/*', ['default']);
+});

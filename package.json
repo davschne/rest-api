@@ -1,8 +1,8 @@
 {
   "name": "rest-api",
   "version": "0.1.0",
-  "description": "\"Single-resource REST API server backed by MongoDB\"",
-  "main": "index.js",
+  "description": "\"Single-resource REST API server backed by MongoDB with Angular frontend\"",
+  "main": "server.js",
   "scripts": {
     "test": "mocha"
   },

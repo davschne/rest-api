@@ -3,7 +3,7 @@ var expect = chai.expect;
 var port = process.env.PORT || 5000;
 var url = "localhost:" + port;
 var path = "/api/users"
-var app = require("../index");
+var app = require("../server");
 
 var dummyUser = {
   "username": "dumbo",

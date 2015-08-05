@@ -1,5 +1,16 @@
 module.exports = function(app) {
-  app.controller('usersController', ['$scope', function($scope) {
-    $scope.text = 'This app is for storing and retrieving user information.';
+  app.controller('usersController', ['$scope', '$http', function($scope, $http) {
+    $scope.users = [];
+    $scope.errors = [];
+    $scope.getAll = function() {
+      $http.get('/api/users')
+        .then(function(res) {
+          $scope.users = res.data;
+        })
+        .catch(function(res) {
+          $scope.errors.push({msg: 'Couldn\'t retrieve users'});
+          console.log(res.data);
+        });
+    };
   }]);
 };

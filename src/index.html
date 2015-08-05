@@ -6,9 +6,30 @@
 </head>
 <body data-ng-app="usersApp">
   <h1>Make a user for no reason!</h1>
-  <main data-ng-controller="usersController">
-    <p>{{text}}</p>
-  </main>
+  <table data-ng-controller="usersController" data-ng-init="getAll()">
+    <thead>
+      <th>username</th>
+      <th>first</th>
+      <th>last</th>
+      <th>email</th>
+      <th>street address</th>
+      <th>city</th>
+      <th>state</th>
+      <th>ZIP</th>
+    </thead>
+    <tbody>
+      <tr data-ng-repeat="user in users">
+        <td>{{user.username}}</td>
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.address.street}}</td>
+        <td>{{user.address.city}}</td>
+        <td>{{user.address.state}}</td>
+        <td>{{user.address.zip}}</td>
+      </tr>
+    </tbody>
+  </table>
   <script src="bundle.js"></script>
 </body>
 </html>

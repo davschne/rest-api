@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 function handle(res, msg) {
   $scope.errors.push({msg: msg});
   console.log(res.data);
@@ -7,6 +9,7 @@ module.exports = function(app) {
   app.controller('usersController', ['$scope', '$http', function($scope, $http) {
     $scope.users = [];
     $scope.errors = [];
+    $scope.userCache = null;
 
     $scope.getAll = function() {
       $http.get('/api/users')
@@ -37,6 +40,30 @@ module.exports = function(app) {
         .catch(function(res) {
           handle(res, 'Error deleting user');
         });
+    };
+
+    $scope.update = function(user) {
+      $http.put('/api/users/' + user._id, user)
+        .then(function(res) {
+          user.editing = false;
+          $scope.userCache = null;
+        })
+        .catch(function(res) {
+          $scope.cancelEdit(user);
+          handle(res, 'Error updating user');
+        });
+    };
+
+    $scope.editUser = function(user) {
+      $scope.userCache = _.cloneDeep(user);
+      user.editing = true;
+    };
+
+    $scope.cancelEdit = function(user) {
+      var restore = $scope.userCache;
+      $scope.userCache = null;
+      restore.editing = false;
+      $scope.users[$scope.users.indexOf(user)] = restore;
     };
   }]);
 };

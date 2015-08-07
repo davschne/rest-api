@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Address book</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-ng-app="usersApp">
+  <main data-ng-controller="usersController" data-ng-init="getAll()">
+    <h1>Address book</h1>
+    <table>
+      <thead>
+        <th>username</th>
+        <th>first</th>
+        <th>last</th>
+        <th>email</th>
+        <th>street address</th>
+        <th>city</th>
+        <th>state</th>
+        <th>ZIP</th>
+        <th class="button-cell"></th>
+        <th class="button-cell"></th>
+      </thead>
+      <tbody>
+        <tr data-ng-repeat="user in users">
+          <td>
+            <div data-ng-if="!user.editing">{{user.username}}</div>
+            <input type="text" required name="username" data-ng-model="user.username" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.firstname}}</div>
+            <input type="text" name="first" data-ng-model="user.firstname" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.lastname}}</div>
+            <input type="text" name="last" data-ng-model="user.lastname" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.email}}</div>
+            <input type="text" name="email" data-ng-model="user.email" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.address.street}}</div>
+            <input type="text" name="street" data-ng-model="user.address.street" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.address.city}}</div>
+            <input type="text" name="city" data-ng-model="user.address.city" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.address.state}}</div>
+            <input type="text" name="state" data-ng-model="user.address.state" data-ng-if="user.editing">
+          </td>
+          <td>
+            <div data-ng-if="!user.editing">{{user.address.zip}}</div>
+            <input type="text" name="zip" data-ng-model="user.address.zip" data-ng-if="user.editing">
+          </td>
+          <td class="button-cell">
+            <button data-ng-if="!user.editing" data-ng-click="editUser(user)">Edit</button>
+            <button data-ng-if="user.editing" data-ng-click="update(user)">Update</button>
+          </td>
+          <td class="button-cell">
+            <button data-ng-if="!user.editing" data-ng-click="destroy(user)">Delete</button>
+            <button data-ng-if="user.editing" data-ng-click="cancelEdit(user)">Cancel</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input type="text" required name="username" data-ng-model="newUser.username"></td>
+          <td><input type="text" name="first" data-ng-model="newUser.firstname"></td>
+          <td><input type="text" name="last" data-ng-model="newUser.lastname"></td>
+          <td><input type="text" name="email" data-ng-model="newUser.email"></td>
+          <td><input type="text" name="street" data-ng-model="newUser.address.street"></td>
+          <td><input type="text" name="city" data-ng-model="newUser.address.city"></td>
+          <td><input type="text" name="state" data-ng-model="newUser.address.state"></td>
+          <td><input type="text" name="zip" data-ng-model="newUser.address.zip"></td>
+          <td class="button-cell"><button data-ng-click="create(newUser)">Add</button></td>
+          <td class="button-cell"><button data-ng-click="newUser = null">Cancel</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
+  <script src="bundle.js"></script>
+</body>
+</html>

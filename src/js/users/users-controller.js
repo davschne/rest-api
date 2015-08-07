@@ -45,6 +45,7 @@ module.exports = function(app) {
     $scope.update = function(user) {
       $http.put('/api/users/' + user._id, user)
         .then(function(res) {
+
           user.editing = false;
           $scope.userCache = null;
         })

@@ -47,7 +47,7 @@ module.exports = function(router) {
   router.put("/:id", function(req, res) {
     var id = req.params.id;
     console.log("PUT request at /api/user/" + id);
-    User.findByIdAndUpdate(id, req.body, function(err, data) {
+    User.findByIdAndUpdate(id, req.body, {new: true}, function(err, data) {
       if (err) {
         res.status(400).json({msg: err});
         console.error(err);

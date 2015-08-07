@@ -45,7 +45,6 @@ module.exports = function(app) {
     $scope.update = function(user) {
       $http.put('/api/users/' + user._id, user)
         .then(function(res) {
-
           user.editing = false;
           $scope.userCache = null;
         })
@@ -56,14 +55,19 @@ module.exports = function(app) {
     };
 
     $scope.editUser = function(user) {
+      if ($scope.userCache) {
+        $scope.cancelEdit($scope.userCache.original);
+      }
       $scope.userCache = _.cloneDeep(user);
+      $scope.userCache.original = user;
       user.editing = true;
     };
 
     $scope.cancelEdit = function(user) {
+      delete $scope.userCache.original;
       var restore = $scope.userCache;
-      $scope.userCache = null;
       restore.editing = false;
+      $scope.userCache = null;
       $scope.users[$scope.users.indexOf(user)] = restore;
     };
   }]);

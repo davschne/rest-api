@@ -56,7 +56,6 @@
 
 	describe('users controllers', function() {
 
-	  var $ControllerConstructor;
 	  var $httpBackend;
 	  var $scope;
 
@@ -64,21 +63,13 @@
 
 	  beforeEach(angular.mock.inject(function($rootScope, $controller) {
 	    $scope = $rootScope.$new();
-	    $ControllerConstructor = $controller;
+	    $controller('usersController', {$scope: $scope});
 	  }));
 
-	  it('should be able to create a controller', function() {
-	    var usersController = $ControllerConstructor('usersController', {$scope: $scope});
-	    expect(typeof usersController).toBe('object');
-	    expect(typeof $scope.getAll).toBe('function');
-	    expect(Array.isArray($scope.users)).toBe(true);
-	  });
-
 	  describe('REST interface', function() {
-	    beforeEach(angular.mock.inject(function(_$httpBackend_, $rootScope) {
+
+	    beforeEach(angular.mock.inject(function(_$httpBackend_) {
 	      $httpBackend = _$httpBackend_;
-	      $scope = $rootScope.$new();
-	      $ControllerConstructor('usersController', {$scope: $scope});
 	    }));
 
 	    afterEach(function() {
@@ -140,15 +131,13 @@
 
 	    var testUsers;
 
-	    beforeEach(angular.mock.inject(function($rootScope) {
-	      $scope = $rootScope.$new();
-	      $ControllerConstructor('usersController', {$scope: $scope});
+	    beforeEach(function() {
 	      testUsers = [
 	        {username: "Larry", address: {city: "Lawrenceburg"}},
 	        {username: "Moe", address: {city: "Mobile"}},
 	        {username: "Curly", address: {city: "Curlew"}}
 	      ];
-	    }));
+	    });
 
 	    describe('cancelEdit', function() {
 

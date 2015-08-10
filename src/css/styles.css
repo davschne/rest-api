@@ -1,0 +1,31 @@
+h1 {
+  font-weight: bold;
+  font-size: 50px;
+  padding: 10px;
+}
+
+th, td {
+  width: 100px;
+  border: 1px solid #000000;
+  padding: 5px;
+  background-color: #83B1E6;
+}
+
+input {
+  width: 90px;
+  background-color: #E6ECF2;
+}
+
+th {
+  font-weight: bold;
+  background-color: #2665AD;
+  color: #83B1E6;
+}
+
+.button-cell {
+  width: 50px;
+}
+
+button {
+  background-color: #E6ECF2;
+}

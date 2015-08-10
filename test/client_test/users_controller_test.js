@@ -33,6 +33,54 @@ describe('users controllers', function() {
       $httpBackend.verifyNoOutstandingRequest();
     });
 
+    describe('getAll', function() {
+      it('should make a GET request to /api/users and replace $scope.users with the response data', function() {
+        $httpBackend.expectGET('/api/users').respond(200, [{username: 'Jimbo'}]);
+        $scope.getAll();
+        $httpBackend.flush();
+        expect($scope.users.length).toBe(1);
+        expect($scope.users[0].username).toBe('Jimbo');
+      });
+    });
+
+    describe('create', function() {
+      it('should make a POST request to /api/users, sending the argument user as request body, push the response body to $scope.users, and set $scope.newUser to null', function() {
+        $httpBackend.expectPOST('/api/users').respond(200, {username: 'Vincent'});
+        $scope.users = [{username: 'Billy Bob'}];
+        $scope.newUser = [{username: 'Vinny'}];
+        $scope.create($scope.newUser);
+        $httpBackend.flush();
+        expect($scope.users.length).toBe(2);
+        expect($scope.users[1].username).toBe('Vincent');
+        expect($scope.newUser).toBeNull();
+      });
+    });
+
+    describe('destroy', function() {
+      it('should make a DELETE request to /api/users/ + argument user._id and remove the argument user from $scope.users on a successful response', function() {
+        var user = {_id: 'YourMom', username: 'Regina'};
+        $scope.users = [{_id: 123, username: 'Jenny'}, user, {_id: 456, username: 'Alice'}];
+        $httpBackend.expectDELETE('/api/users/' + user._id).respond(200);
+        $scope.destroy(user);
+        $httpBackend.flush();
+        expect($scope.users.length).toBe(2);
+        expect($scope.users.indexOf(user)).toBe(-1);
+        expect($scope.users[0]._id).toBe(123);
+        expect($scope.users[1]._id).toBe(456);
+      });
+    });
+
+    describe('update', function() {
+      it('should make a PUT request to /api/users/ + argument user._id, sending the argument user as request body, set the .editing property on the argument user to false, and set $scope.userCache to null', function() {
+        var user = {_id: 'hi', username: 'YoMama', editing: true};
+        $scope.userCache = {data: "yep"};
+        $httpBackend.expectPUT('/api/users/' + user._id, user).respond(200);
+        $scope.update(user);
+        $httpBackend.flush();
+        expect(user.editing).toBe(false);
+        expect($scope.userCache).toBeNull();
+      });
+    });
   });
 
   describe('helper functions for editing', function() {
@@ -63,10 +111,6 @@ describe('users controllers', function() {
         expect($scope.users[1].original).toBeUndefined();
         expect($scope.userCache).toBeNull();
       });
-
-      it('some text', function() {
-        console.log("In some text:", $scope.users);
-      })
     });
 
     describe('editUser', function() {
